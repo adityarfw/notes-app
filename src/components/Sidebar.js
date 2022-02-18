@@ -9,8 +9,13 @@ export default function Sidebar(props) {
         }`}
         onClick={() => props.setCurrentNoteId(note.id)}
       >
-        {/* note.body will get the contents. Splitting the contents separated by \n character. Setting only the first element of the arrray as the title */}
         <h4 className='text-snippet'>{note.body.split('\n')[0]}</h4>
+        <button
+          className='delete-btn'
+          onClick={(event) => props.deleteNote(event, note.id)}
+        >
+          <i className='gg-trash trash-icon'></i>
+        </button>
       </div>
     </div>
   ));

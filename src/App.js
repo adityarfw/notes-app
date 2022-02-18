@@ -52,7 +52,6 @@ export default function App() {
     const moveNote = notes[index];
     notes.splice(index, 1); // Remove item from that index
     notes.splice(0, 0, moveNote); // Place the note in 0 index
-    console.log(notes);
   };
 
   function findCurrentNote() {
@@ -61,6 +60,15 @@ export default function App() {
         return note.id === currentNoteId;
       }) || notes[0]
     );
+  }
+
+  // Add Delete option
+  // Use filter to create a new array without the deleted element
+  // The deleted note can be found using id that was passed in
+
+  function deleteNote(event, noteId) {
+    event.stopPropagation();
+    setNotes((prevState) => prevState.filter((note) => noteId !== note.id));
   }
 
   return (
@@ -72,6 +80,7 @@ export default function App() {
             currentNote={findCurrentNote()}
             setCurrentNoteId={setCurrentNoteId}
             newNote={createNewNote}
+            deleteNote={deleteNote}
           />
           {currentNoteId && notes.length > 0 && (
             <Editor currentNote={findCurrentNote()} updateNote={updateNote} />
