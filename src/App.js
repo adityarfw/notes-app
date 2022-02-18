@@ -26,6 +26,12 @@ export default function App() {
     setCurrentNoteId(newNote.id);
   }
 
+  // Everytime a note is updated, it needs to go the top of the list.
+  // When the setNotes is called, get the id of the note - done
+  // Using that id find the index of that element
+  // Remove that item from that array position using .splice
+  // place it to the top of the array zeroth element by using .splice
+
   function updateNote(text) {
     setNotes((oldNotes) =>
       oldNotes.map((oldNote) => {
@@ -34,7 +40,20 @@ export default function App() {
           : oldNote;
       })
     );
+    let index = notes.findIndex((el) => {
+      if (el.id === currentNoteId) {
+        return true;
+      }
+    });
+    moveUpdatedNote(index);
   }
+
+  const moveUpdatedNote = (index) => {
+    const moveNote = notes[index];
+    notes.splice(index, 1); // Remove item from that index
+    notes.splice(0, 0, moveNote); // Place the note in 0 index
+    console.log(notes);
+  };
 
   function findCurrentNote() {
     return (
